@@ -32,13 +32,7 @@ ForEach ($Sheet in $SheetNames) {
     }   
 }
 
-$list = @(Get-ADComputer -Filter * -SearchBase $Env["SEARCH_BASE"] | Select-Object -ExpandProperty DNSHostName)
-$ADComputerList = @()
-
-ForEach ($item in $list) {
-    $newitem = $item -replace ".thermtech.local", ""
-    $ADComputerList += $newitem
-}
+$ADComputerList = @(Get-ADComputer -Filter * -SearchBase $Env["SEARCH_BASE"] | Select-Object -ExpandProperty Name)
 
 ForEach ($ExcelComputer in $ExcelSheetsComputerList) {
     If (-not ($ADComputerList -contains $ExcelComputer)) {
