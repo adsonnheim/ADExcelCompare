@@ -36,12 +36,12 @@ $ADComputerList = @(Get-ADComputer -Filter * -SearchBase $Env["SEARCH_BASE"] | S
 
 ForEach ($ExcelComputer in $ExcelSheetsComputerList) {
     If (-not ($ADComputerList -contains $ExcelComputer)) {
-        Write-Host $ExcelComputer "is present in Excel but not in Active Directory!" -BackgroundColor Green
+        Write-Host $ExcelComputer "is present in Excel but inconsistent with Active Directory!" -BackgroundColor Green
     }
 }
 
 ForEach ($ADComputer in $ADComputerList) {
     If (-not ($ExcelSheetsComputerList -contains $ADComputer)) {
-        Write-Host $ADComputer "is present in Active Directory but not in Excel!" -BackgroundColor DarkYellow
+        Write-Host $ADComputer "is present in Active Directory but inconsistent with Excel!" -BackgroundColor DarkYellow
     }
 }
